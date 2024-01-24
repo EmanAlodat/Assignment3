@@ -1,0 +1,100 @@
+﻿@using WebMatrix.Data;
+@{
+    var db = Database.Open("userInformationDB");
+    var selectedData = db.Query("SELECT * FROM Person");
+    var grid = new WebGrid(source: selectedData, defaultSort: "Name", rowsPerPage: 4);
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Menu</title>
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+           background-color:rgb(128, 128, 128);
+            background-size: cover;
+          
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            margin-top: 15px;
+            margin-bottom: 50px;
+            background-color: azure;
+            font-size: 40px;
+            padding: 7px;
+        }
+
+        .grid {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 500px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+
+            .grid th, .grid td {
+                border: 1px solid #ddd;
+                padding: 5px;
+                text-align: center;
+            }
+
+        .head {
+            background-color:blue;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 6px;
+        }
+
+        .alt {
+            background-color: blue;
+            color: #fff;
+        }
+
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db; 
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease; 
+        }
+
+            a:hover {
+                background-color: #2980b9; 
+            }
+         
+
+            
+    </style>
+</head>
+<body>
+    <h1>Display Person Information </h1>
+    <div>
+        @grid.GetHtml(
+            tableStyle: "grid",
+            headerStyle: "head",
+            alternatingRowStyle: "alt",
+            columns: grid.Columns(
+                 grid.Column("Name"),
+                grid.Column("Mobile"),
+                grid.Column("Address")
+
+            )
+        )
+        <a href="InsertDelete.cshtml">ADD/DELETE</a>
+    </div>
+    
+</body>
+</html>
